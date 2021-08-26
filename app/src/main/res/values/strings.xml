@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Shape Fitter</string>
+    <string name="action_settings">Settings</string>
+    <string name="next_button_text">next</string>
+    <string name="prev_button_text">prev</string>
+    <string name="del_button_text">del</string>
+    <string name="size_plus_button_text">size +</string>
+    <string name="size_minus_button_text">size -</string>
+    <string name="new_button_text">new</string>
+    <string name="new_plus_button_text">new +</string>
+    <string name="new_minus_button_text">new -</string>
+    <string name="delay_plus_button_text">delay +</string>
+    <string name="delay_minus_button_text">delay -</string>
+    <string name="solve_button_text">solve</string>
+    <string name="save_button_text">save</string>
+    <string name="up_button_text">^</string>
+    <string name="down_button_text">v</string>
+    <string name="left_button_text">&lt;</string>
+    <string name="right_button_text">&gt;</string>
+    <string name="percent50_text">50%</string>
+    <string name="space_text"> </string>
+    <string name="check_button_text">check</string>
+</resources>

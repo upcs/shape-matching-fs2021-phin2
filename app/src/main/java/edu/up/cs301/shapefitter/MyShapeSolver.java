@@ -28,8 +28,54 @@ public class MyShapeSolver extends ShapeSolver {
     public void solve() {
 
         // ****dummied up****
-        // always "finds" a solution at row 3, column 4, with a 90-degree clockwise orientation
-        display(3, 4, Orientation.ROTATE_CLOCKWISE);
+        int sR, sC, wR, wC;
+        int xMatch = 0;
+        int yMatch = 0; //coordinates of the first found match
+        int numSquares = 0; //# of squares in shape
+        int countSquares = 0;//# current number of squares in shape
+        boolean matchFound = false;
+    //Bug: in the nested for loops, program is skipping last row and column.
+
+    //counts how many elements in  shape are true, this will let us know when to stop.
+    for (sR = 0; sR != shape.length; sR++) {
+        for (sC = 0; sC < shape.length; sC++) {
+            if (shape[sR][sC]) {
+                numSquares++;
+            }
+        }
+    }
+
+
+
+
+
+    //iterates through the world array
+    for (wR = 0; wR < (world.length - shape.length); wR++) {
+        for (wC = 0; wC < (world[wR].length - shape[sR].length); wC++) {
+            countSquares = 0;
+            //at each element in world array iterates through the shape array
+            for (sR = 0; sR < shape.length - 1; sR++) {
+                for (sC = 0; sC < shape[sR].length - 1; sC++) {
+                    if ((shape[sR][sC] && !world[wR + sR][wC + sC])) {
+                        continue;
+                    }
+                    if (!shape[sR][sC] && !world[wR + sR][wC + sC]) {
+                        continue;
+                    }
+                    if (!shape[sR][sC] && world[wR + sR][wC + sC]) {
+                        continue;
+                    }
+                    countSquares++;
+                    if (countSquares == numSquares) { //when all of the true squares have been counted
+                        display(wR, wC, Orientation.ROTATE_NONE);
+                        return;
+                    } else {
+                        undisplay();
+                    }
+                }
+            }
+        }
+    }
     }
 
     /**

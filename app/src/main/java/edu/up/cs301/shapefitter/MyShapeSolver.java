@@ -150,7 +150,6 @@ public class MyShapeSolver extends ShapeSolver {
         boolean wellFormed = true;
         int emptySquares = 0;
         int adjSquares = 4;
-
         for (int i = 0; i < shape.length; i++) {
             for (int j = 0; j < shape[i].length; j++) {
                 if (shape[i][j]) {

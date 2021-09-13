@@ -29,12 +29,8 @@ public class MyShapeSolver extends ShapeSolver {
      * undisplay can be made.
      */
 
-    public void solve() {
-                matchFinder();
-    }
-
     // finds a match, the parameter determines what orientation the match will be displayed in
-    protected boolean matchFinder() {
+    public void solve() {
         // ****dummied up****
         int sR = 0, sC = 0, wR = 0, wC = 0;
         int numSquares = 0; //# of squares in shape
@@ -70,7 +66,7 @@ public class MyShapeSolver extends ShapeSolver {
                             countSquares++;
                             if (countSquares == numSquares) { //when all of the true squares have been counted
                                 display(wR, wC, or);
-                                return true;
+                                return;
                             } else {
                                 undisplay();
                                 continue;
@@ -79,10 +75,13 @@ public class MyShapeSolver extends ShapeSolver {
                     }
                 }
             }
+            if (or == Orientation.ROTATE_NONE_REV){
+            reflect();
+            }
             rotate();
-        }
-            undisplay();
-            return false;
+            }
+        undisplay();
+        return;
         }
 
     protected void rotate() { //rotates the shape 90 degrees clockwise

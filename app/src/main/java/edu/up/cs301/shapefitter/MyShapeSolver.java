@@ -32,27 +32,25 @@ public class MyShapeSolver extends ShapeSolver {
 
     public void solve() {
         int orientation = 0;
-
-        for(int i = 0; i < 3; i++) {
-                if (orientation == 0) {
-                    matchFinder(Orientation.ROTATE_NONE);
-                }
-                if (orientation == 1) {
-                    rotate();
-                    matchFinder(Orientation.ROTATE_CLOCKWISE);
-                }
-                if (orientation == 2) {
-                    rotate();
-                    matchFinder(Orientation.ROTATE_180);
-                }
-                if (orientation == 3) {
-                    rotate();
-                    matchFinder((Orientation.ROTATE_COUNTERCLOCKWISE));
-                }
+        boolean matchFound = false;
+        while (!matchFound) {
+            if (orientation == 0) { //searches for match w/ no rotation
+                matchFound = matchFinder(Orientation.ROTATE_NONE);
+            }
+            else if (orientation == 1) { //searches for match w/ 90 rotation
+                rotate();
+                matchFound = matchFinder(Orientation.ROTATE_CLOCKWISE);
+            }
+            else if (orientation == 2) { //searches for match w/ 180 rotation
+                rotate();
+                matchFound = matchFinder(Orientation.ROTATE_180);
+            }
+            else if (orientation == 3) { //searches for match w/ 90 counterclockwise
+                rotate();
+                matchFound = matchFinder((Orientation.ROTATE_COUNTERCLOCKWISE));
             }
         }
-
-
+    }
     // finds a match, the parameter determines what orientation the match will be displayed in
     protected boolean matchFinder(Orientation orientation){
 
@@ -65,7 +63,7 @@ public class MyShapeSolver extends ShapeSolver {
 
         //counts how many elements in  shape are true, this will let us know when to stop
 
-        for (sR = 0; sR != shape.length -1; sR++) {
+        for (sR = 0; sR < shape.length -1; sR++) {
             for (sC = 0; sC < shape.length -1; sC++) {
                 if (shape[sR][sC]) {
                     numSquares++;
@@ -103,7 +101,7 @@ public class MyShapeSolver extends ShapeSolver {
         return false;
 }
 
-    public void rotate() { //rotates the shape 90 degrees clockwise
+    protected void rotate() { //rotates the shape 90 degrees clockwise
         boolean[][] array = new boolean[shape.length][shape[0].length]; //temporary array to store rotated shape
         for(int i =0; i < shape.length; i++) {
             for(int j = 0; j < shape[i].length; j++) {
@@ -119,17 +117,52 @@ public class MyShapeSolver extends ShapeSolver {
         }
 }
 
+    protected void reflect() {//reflects the shape
+        boolean[][] array = new boolean[shape.length][shape[0].length];
+        for(int i = 0; i < shape.length; i++) {
+            for(int j = 0; j < shape[i].length; j++) {
+                array[i][j] = shape[i][j];
+                shape[i][j] = shape[i][shape.length -1 -j];
+                shape[i][shape.length -1 - j] = array[i][j];
+            }
+        }
+
+    }
+
     /**
      * Checks if the shape is well-formed: has at least one square, and has all squares connected.
      *
      * @return whether the shape is well-formed
      */
     public boolean check() {
+        //in the instructions it says the button will stay blue if true is returned
+        //however it seems to be the opposite, it will stay blue when false is returned and red if true
         boolean wellFormed = true;
+        int emptySquares = 0;
+        int adjSquares = 4;
         for(int i = 0; i < shape.length; i++) {
             for(int j = 0; j < shape[i].length; j++) {
 
+                if(shape[i][j]) {
+                 if (i != shape.length-1 && (!shape[i + 1][j])) {
+                    emptySquares++;
+                 }
+                 if (i != 0 && (!shape[i - 1][j])) {
+                     emptySquares++;
+                 }
+                 if (j != 0 && (!shape[i][j - 1])) {
+                     emptySquares++;
+                 }
+                 if (j != shape.length && (!shape[i][j + 1])) {
+                     emptySquares++;
+                 }
+                 if (emptySquares == adjSquares) {
+                 wellFormed = false;
+                 return wellFormed;
 
+
+                 }
+                }
             }
         }
         return wellFormed;

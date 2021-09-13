@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="shape_create_full">#503000</color>
+    <color name="shape_create_empty">#ffffff</color>
+    <color name="shape_fit_full">#0000b0</color>
+    <color name="shape_fit_empty">#ff8080</color>
+    <color name="shape_fit_full_with_overlap">#80c0ff</color>
+    <color name="shape_fit_empty_with_overlap">#ffe0e0</color>
+    <color name="shape_fit_background">#c0ffc0</color>
+    <color name="shape_create_background">#55ffff</color>
+    <color name="shape_create_line_color">#000000</color>
+    <color name="shape_fit_line_color">#0000ff</color>
+    <color name="solve_button_color">#ff6060</color>
+    <color name="check_button_color">#70b0ff</color>
+</resources>

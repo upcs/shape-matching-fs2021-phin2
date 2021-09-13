@@ -33,42 +33,42 @@ public class MyShapeSolver extends ShapeSolver {
     public void solve() {
         int orientation = 0;
         boolean matchFound = false;
-        while (!matchFound) {
+        for(Orientation or: Orientation.values()) {
             if (orientation == 0) {
                 matchFound = matchFinder(Orientation.ROTATE_NONE);
-            } else if (orientation == 1) { //searches for match w/ 90 rotation
+
+            } if (orientation == 1) { //searches for match w/ 90 rotation
                 rotate();
                 matchFound = matchFinder(Orientation.ROTATE_CLOCKWISE);
 
-            } else if (orientation == 2) { //searches for match w/ 180 rotation
+            } if (orientation == 2) { //searches for match w/ 180 rotation
                 rotate();
                 matchFound = matchFinder(Orientation.ROTATE_180);
 
-            } else if (orientation == 3) { //searches for match w/ 90 counterclockwise
+            } if (orientation == 3) { //searches for match w/ 90 counterclockwise
                 rotate();
                 matchFound = matchFinder((Orientation.ROTATE_COUNTERCLOCKWISE));
 
-            } else if (orientation == 4) { //searches for match w/ reflection
+            } if (orientation == 4) { //searches for match w/ reflection
                 rotate();
                 reflect();
                 matchFound = matchFinder(Orientation.ROTATE_NONE_REV);
 
-            } else if (orientation == 5) { //searches for match w/ 90 rotation and reflection
+            } if (orientation == 5) { //searches for match w/ 90 rotation and reflection
                 rotate();
                 matchFound = matchFinder(Orientation.ROTATE_CLOCKWISE_REV);
 
-            } else if (orientation == 6) { //searches for match w/ 180 rotation and reflection
+            } if (orientation == 6) { //searches for match w/ 180 rotation and reflection
                 rotate();
                 matchFound = matchFinder(Orientation.ROTATE_CLOCKWISE_REV);
 
-            } else if (orientation == 7) { //searches for match w/ counterclockwise rotation and reflection
+            } if (orientation == 7) { //searches for match w/ counterclockwise rotation and reflection
                 rotate();
                 matchFound = matchFinder(Orientation.ROTATE_COUNTERCLOCKWISE_REV);
             }
             orientation++;
         }
     }
-
 
     // finds a match, the parameter determines what orientation the match will be displayed in
     protected boolean matchFinder(Orientation orientation) {
@@ -87,7 +87,6 @@ public class MyShapeSolver extends ShapeSolver {
                 }
             }
         }
-
         //iterates through the world array
         for (wR = 0; wR < (world.length - shape.length); wR++) {
             for (wC = 0; wC < (world[wR].length - shape[0].length); wC++) {
@@ -118,7 +117,6 @@ public class MyShapeSolver extends ShapeSolver {
         }
         return false;
     }
-
     protected void rotate() { //rotates the shape 90 degrees clockwise
         boolean[][] array = new boolean[shape.length][shape[0].length]; //temporary array to store rotated shape
         for (int i = 0; i < shape.length; i++) {

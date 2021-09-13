@@ -21,7 +21,6 @@ public class MyShapeSolver extends ShapeSolver {
     public MyShapeSolver(boolean[][] parmShape, boolean[][] parmWorld, ShapeSolutionAcceptor acc) {
         // invoke superclass constructor
         super(parmShape, parmWorld, acc);
-
     }
 
     /**
@@ -31,48 +30,11 @@ public class MyShapeSolver extends ShapeSolver {
      */
 
     public void solve() {
-        int orientation = 0;
-        boolean matchFound = false;
-        for(Orientation or: Orientation.values()) {
-            if (orientation == 0) {
-                matchFound = matchFinder(Orientation.ROTATE_NONE);
-
-            } if (orientation == 1) { //searches for match w/ 90 rotation
-                rotate();
-                matchFound = matchFinder(Orientation.ROTATE_CLOCKWISE);
-
-            } if (orientation == 2) { //searches for match w/ 180 rotation
-                rotate();
-                matchFound = matchFinder(Orientation.ROTATE_180);
-
-            } if (orientation == 3) { //searches for match w/ 90 counterclockwise
-                rotate();
-                matchFound = matchFinder((Orientation.ROTATE_COUNTERCLOCKWISE));
-
-            } if (orientation == 4) { //searches for match w/ reflection
-                rotate();
-                reflect();
-                matchFound = matchFinder(Orientation.ROTATE_NONE_REV);
-
-            } if (orientation == 5) { //searches for match w/ 90 rotation and reflection
-                rotate();
-                matchFound = matchFinder(Orientation.ROTATE_CLOCKWISE_REV);
-
-            } if (orientation == 6) { //searches for match w/ 180 rotation and reflection
-                rotate();
-                matchFound = matchFinder(Orientation.ROTATE_CLOCKWISE_REV);
-
-            } if (orientation == 7) { //searches for match w/ counterclockwise rotation and reflection
-                rotate();
-                matchFound = matchFinder(Orientation.ROTATE_COUNTERCLOCKWISE_REV);
-            }
-            orientation++;
-        }
+                matchFinder();
     }
 
     // finds a match, the parameter determines what orientation the match will be displayed in
-    protected boolean matchFinder(Orientation orientation) {
-
+    protected boolean matchFinder() {
         // ****dummied up****
         int sR = 0, sC = 0, wR = 0, wC = 0;
         int numSquares = 0; //# of squares in shape
@@ -87,36 +49,42 @@ public class MyShapeSolver extends ShapeSolver {
                 }
             }
         }
+
         //iterates through the world array
-        for (wR = 0; wR < (world.length - shape.length); wR++) {
-            for (wC = 0; wC < (world[wR].length - shape[0].length); wC++) {
-                countSquares = 0;
-                //at each element in world array iterates through the shape array
-                for (sR = 0; sR < shape.length; sR++) {
-                    for (sC = 0; sC < shape[sR].length; sC++) {
-                        if ((shape[sR][sC] && !world[wR + sR][wC + sC])) {
-                            continue;
-                        }
-                        if (!shape[sR][sC] && !world[wR + sR][wC + sC]) {
-                            continue;
-                        }
-                        if (!shape[sR][sC] && world[wR + sR][wC + sC]) {
-                            continue;
-                        }
-                        countSquares++;
-                        if (countSquares == numSquares) { //when all of the true squares have been counted
-                            display(wR, wC, orientation);
-                            return true;
-                        } else {
-                            undisplay();
-                            continue;
+        for (Orientation or : Orientation.values()) {
+            for (wR = 0; wR < (world.length - shape.length); wR++) {
+                for (wC = 0; wC < (world[wR].length - shape[0].length); wC++) {
+                    countSquares = 0;
+                    //at each element in world array iterates through the shape array
+                    for (sR = 0; sR < shape.length; sR++) {
+                        for (sC = 0; sC < shape[sR].length; sC++) {
+                            if ((shape[sR][sC] && !world[wR + sR][wC + sC])) {
+                                continue;
+                            }
+                            if (!shape[sR][sC] && !world[wR + sR][wC + sC]) {
+                                continue;
+                            }
+                            if (!shape[sR][sC] && world[wR + sR][wC + sC]) {
+                                continue;
+                            }
+                            countSquares++;
+                            if (countSquares == numSquares) { //when all of the true squares have been counted
+                                display(wR, wC, or);
+                                return true;
+                            } else {
+                                undisplay();
+                                continue;
+                            }
                         }
                     }
                 }
             }
+            rotate();
         }
-        return false;
-    }
+            undisplay();
+            return false;
+        }
+
     protected void rotate() { //rotates the shape 90 degrees clockwise
         boolean[][] array = new boolean[shape.length][shape[0].length]; //temporary array to store rotated shape
         for (int i = 0; i < shape.length; i++) {
@@ -133,7 +101,7 @@ public class MyShapeSolver extends ShapeSolver {
         }
     }
 
-    protected void reflect() {//reflects the shape
+    protected void reflect() { //reflects the shape
         boolean[][] array = new boolean[shape.length][shape[0].length];
         for (int i = 0; i < shape.length; i++) {
             for (int j = 0; j < shape[i].length; j++) {
@@ -142,7 +110,6 @@ public class MyShapeSolver extends ShapeSolver {
                 shape[i][shape.length - 1 - j] = array[i][j];
             }
         }
-
     }
 
     /**

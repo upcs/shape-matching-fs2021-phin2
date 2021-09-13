@@ -34,31 +34,41 @@ public class MyShapeSolver extends ShapeSolver {
         int orientation = 0;
         boolean matchFound = false;
         while (!matchFound) {
-            if (orientation == 0) { //searches for match w/ no rotation
+            if (orientation == 0) {
                 matchFound = matchFinder(Orientation.ROTATE_NONE);
             } else if (orientation == 1) { //searches for match w/ 90 rotation
                 rotate();
                 matchFound = matchFinder(Orientation.ROTATE_CLOCKWISE);
+
             } else if (orientation == 2) { //searches for match w/ 180 rotation
                 rotate();
                 matchFound = matchFinder(Orientation.ROTATE_180);
+
             } else if (orientation == 3) { //searches for match w/ 90 counterclockwise
                 rotate();
                 matchFound = matchFinder((Orientation.ROTATE_COUNTERCLOCKWISE));
-            } else if (orientation == 4) {
 
-            } else if (orientation == 5) {
+            } else if (orientation == 4) { //searches for match w/ reflection
+                rotate();
+                reflect();
+                matchFound = matchFinder(Orientation.ROTATE_NONE_REV);
 
-            } else if (orientation == 6) {
+            } else if (orientation == 5) { //searches for match w/ 90 rotation and reflection
+                rotate();
+                matchFound = matchFinder(Orientation.ROTATE_CLOCKWISE_REV);
 
-            } else if (orientation == 7) {
+            } else if (orientation == 6) { //searches for match w/ 180 rotation and reflection
+                rotate();
+                matchFound = matchFinder(Orientation.ROTATE_CLOCKWISE_REV);
 
+            } else if (orientation == 7) { //searches for match w/ counterclockwise rotation and reflection
+                rotate();
+                matchFound = matchFinder(Orientation.ROTATE_COUNTERCLOCKWISE_REV);
             }
-
-
-
+            orientation++;
         }
     }
+
 
     // finds a match, the parameter determines what orientation the match will be displayed in
     protected boolean matchFinder(Orientation orientation) {
@@ -70,7 +80,6 @@ public class MyShapeSolver extends ShapeSolver {
 
         //Bug: in the nested for loops, program is skipping last row and column.
         //counts how many elements in  shape are true, this will let us know when to stop
-
         for (sR = 0; sR < shape.length; sR++) {
             for (sC = 0; sC < shape.length; sC++) {
                 if (shape[sR][sC]) {
@@ -101,7 +110,7 @@ public class MyShapeSolver extends ShapeSolver {
                             return true;
                         } else {
                             undisplay();
-                            break;
+                            continue;
                         }
                     }
                 }
@@ -143,7 +152,6 @@ public class MyShapeSolver extends ShapeSolver {
      *
      * @return whether the shape is well-formed
      */
-
     public boolean check() {
         //in the instructions it says the button will stay blue if true is returned
         //however it seems to be the opposite, it will stay blue when false is returned and red if true

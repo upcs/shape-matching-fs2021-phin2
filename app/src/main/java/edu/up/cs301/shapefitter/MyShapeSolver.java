@@ -142,7 +142,6 @@ public class MyShapeSolver extends ShapeSolver {
         int adjSquares = 4;
         for(int i = 0; i < shape.length; i++) {
             for(int j = 0; j < shape[i].length; j++) {
-
                 if(shape[i][j]) {
                  if (i != shape.length-1 && (!shape[i + 1][j])) {
                     emptySquares++;
@@ -159,8 +158,6 @@ public class MyShapeSolver extends ShapeSolver {
                  if (emptySquares == adjSquares) {
                  wellFormed = false;
                  return wellFormed;
-
-
                  }
                 }
             }

@@ -124,6 +124,12 @@ public class MyShapeSolver extends ShapeSolver {
         int adjSquares = 4;
         for (int i = 0; i < shape.length; i++) {
             for (int j = 0; j < shape[i].length; j++) {
+                if (i == 0 || i == shape.length - 1 || j == 0 || j == shape[i].length - 1) {
+                    adjSquares = 3;
+                }
+                if((i == 0 && j == 0) || (i == 0 && j == shape[i].length - 1) || (i == shape.length - 1 && j == 0) || (i == shape.length - 1 && j == shape[i].length - 1)) {
+                    adjSquares = 2;
+                }
                 if (shape[i][j]) {
                     if (i != shape.length - 1 && (!shape[i + 1][j])) {
                         emptySquares++;

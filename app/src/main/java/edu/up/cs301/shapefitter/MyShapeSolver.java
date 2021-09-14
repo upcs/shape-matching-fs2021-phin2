@@ -9,8 +9,6 @@ import android.util.Log;
  * @version **** put completion date here ****
  */
 public class MyShapeSolver extends ShapeSolver {
-
-
     /**
      * Creates a solver for a particular problem.
      *
@@ -54,16 +52,9 @@ public class MyShapeSolver extends ShapeSolver {
                     //at each element in world array iterates through the shape array
                     for (sR = 0; sR < shape.length; sR++) {
                         for (sC = 0; sC < shape[sR].length; sC++) {
-                            if ((shape[sR][sC] && !world[wR + sR][wC + sC])) {
-                                continue;
+                            if (shape[sR][sC] && world[wR + sR][wC + sC]) {
+                                countSquares++;
                             }
-                            if (!shape[sR][sC] && !world[wR + sR][wC + sC]) {
-                                continue;
-                            }
-                            if (!shape[sR][sC] && world[wR + sR][wC + sC]) {
-                                continue;
-                            }
-                            countSquares++;
                             if (countSquares == numSquares) { //when all of the true squares have been counted
                                 display(wR, wC, or);
                                 return;
